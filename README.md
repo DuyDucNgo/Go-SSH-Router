@@ -1,5 +1,5 @@
 # SSH
-Want: using Golang to connect to Router
+Want: using Golang to connect to Router and
   run: show ip interface brief
   
 Scenario:
