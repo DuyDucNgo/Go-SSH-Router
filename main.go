@@ -1,19 +1,57 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"log"
+	"os"
 
 	"golang.org/x/crypto/ssh"
 )
 
+type User struct {
+	name     string
+	password string
+}
+
+func NewUser(n string, p string) *User {
+	user := new(User)
+	user.name = n
+	user.password = p
+	return user
+}
+
+func (u *User) Input() {
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Name: ")
+	if scanner.Scan() {
+		u.name = scanner.Text()
+	}
+	fmt.Print("Pass: ")
+	if scanner.Scan() {
+		u.password = scanner.Text()
+	}
+}
+
+func (u *User) Valid() bool {
+	if u.name == "" || u.password == "" {
+		return false
+	}
+	return true
+}
+
 func main() {
 	//var hostKey ssh.PublicKey
+	user := NewUser("", "")
+	user.Input()
+	if !user.Valid() {
+		log.Fatal("user invalid")
+	}
 	config := &ssh.ClientConfig{
-		User: "user",
+		User: user.name,
 		Auth: []ssh.AuthMethod{
-			ssh.Password("pass"),
+			ssh.Password(user.password),
 		},
 		//HostKeyCallback: ssh.FixedHostKey(hostKey),
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
