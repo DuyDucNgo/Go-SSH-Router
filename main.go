@@ -11,9 +11,9 @@ import (
 func main() {
 	//var hostKey ssh.PublicKey
 	config := &ssh.ClientConfig{
-		User: "ccna",
+		User: "user",
 		Auth: []ssh.AuthMethod{
-			ssh.Password("vnpro"),
+			ssh.Password("pass"),
 		},
 		//HostKeyCallback: ssh.FixedHostKey(hostKey),
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
