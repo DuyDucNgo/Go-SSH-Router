@@ -18,7 +18,6 @@ func TestValid(t *testing.T) {
 	}
 	for _, tc := range tests {
 		ft := func(t *testing.T) {
-			t.Parallel()
 			user := NewUser(tc.u, tc.p)
 			got := user.Valid()
 			if got != tc.want {
